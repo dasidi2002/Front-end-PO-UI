@@ -1,0 +1,57 @@
+.escola {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgb(22, 81, 169);
+  margin-bottom: 40px;
+
+}
+
+.titulo {
+  color: rgb(22, 81, 169);
+  border-bottom: 1.5px solid rgb(22, 81, 169); /* definindo cor inicial */
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 60px;
+
+}
+
+.titulo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: rgb(22, 81, 169); /* cor da borda animada */
+  animation: load 4s infinite; /* adicionando animação */
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%; /* borda animada ocupa toda a largura */
+  }
+}
+
+.diaSemana{
+  text-align: center;
+  margin-top: 40px;
+  justify-content: center;
+  text-transform: uppercase;
+  color: rgb(22, 81, 169);
+}
+
+.widget{
+  margin-bottom: 20px;
+}
+
+.po-container {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+}

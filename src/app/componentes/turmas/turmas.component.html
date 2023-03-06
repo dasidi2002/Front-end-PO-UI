@@ -1,0 +1,14 @@
+<h3 class="escola">Escola Mackenzie</h3>
+<h2 class="turmas">Turmas</h2>
+<div class="po-row">
+  <po-widget
+  class="po-lg-4 po-mt-3 po-sm-6"
+  p-primary-label="Selecionar"
+  p-title="Código: {{turma.Cod_turma}}"
+  *ngFor="let turma of turmas"
+  (p-primary-action)="turmaSelecionada(turma)"
+  >
+  <div class=" nomeTurma po-font-subtitle po-text-center" >{{turma.Nome_Turma}}</div>
+  <div class="po-text-center">Número de alunos: {{turma.Num_Alunos}}</div>
+  </po-widget>
+</div>

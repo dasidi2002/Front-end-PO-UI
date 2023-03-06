@@ -1,0 +1,13 @@
+<h3 class="escola">Escola Mackenzie</h3>
+<h2 class="titulo">Dias da semana</h2>
+<div class="po-row">
+  <po-widget
+  class=" widget po-lg-4 po-mt-3 po-sm-6"
+  [p-height]="150"
+  *ngFor="let dia of diasSemana"
+  (p-click)="diaSelecionado(dia)"
+  >
+  <div class=" diaSemana po-font-subtitle po-text-center" >{{dia}}</div>
+  </po-widget>
+</div>
+
