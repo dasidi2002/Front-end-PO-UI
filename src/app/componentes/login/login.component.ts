@@ -28,12 +28,18 @@ export class LoginComponent {
 
   loginSenha(loginSenha: PoPageLogin) {
 
-     this.loginService.validaUsuario(loginSenha.login,loginSenha.password).subscribe((data: any[]) => {
+    const body = {
+      login: loginSenha.login,
+      senha: loginSenha.password
+    };
+
+     this.loginService.validaUsuario(body).subscribe((data: any[]) => {
 
       if (data.length === 0 ) {
         this.poNotification.warning("Usuário não encontrado")
       } else {
         this.usuarioAutenticado = true
+        this.loginService.setUsuario(body.login)
         this.poNotification.success("Usuário autenticado com sucesso")
         this.router.navigate(['/turmas'])
       }
