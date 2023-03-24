@@ -11,6 +11,8 @@ import { PoNotificationModule } from '@po-ui/ng-components';
 import { TurmasComponent } from './componentes/turmas/turmas.component';
 import { DiasemanaComponent } from './componentes/diasemana/diasemana.component';
 import { MateriasComponent } from './componentes/materias/materias.component';
+import { FormsModule }   from '@angular/forms';
+
 
 
 
@@ -29,7 +31,8 @@ import { MateriasComponent } from './componentes/materias/materias.component';
     HttpClientModule,
     RouterModule.forRoot([]),
     PoTemplatesModule,
-    PoNotificationModule
+    PoNotificationModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,4 +12,20 @@ export class TurmasService {
   getTurmas(): Observable<any[]> {  // especifica o tipo de dados
     return this.http.get<any[]>('http://localhost:8800/turmas');
   }
+
+  cadastraTurma(body : any ): Observable<any> {
+
+    const url = "http://localhost:8800/cadastroturma"
+
+    return this.http.post<any>(url,body);
+  }
+
+  editarTurma(body : any ): Observable<any> {
+
+    const url = "http://localhost:8800/editarturma"
+
+    return this.http.post<any>(url,body);
+  }
+
+
 }

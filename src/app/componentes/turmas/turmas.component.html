@@ -1,14 +1,34 @@
 <h3 class="escola">Escola Mackenzie</h3>
 <h2 class="turmas">Turmas</h2>
+<po-button p-label="+ Adicionar Turma" (p-click)="abrirModalICluir()" class="botao"> </po-button>
 <div class="po-row">
   <po-widget
   class="po-lg-4 po-mt-3 po-sm-6"
   p-primary-label="Selecionar"
-  p-title="Código: {{turma.Cod_turma}}"
   *ngFor="let turma of turmas"
   (p-primary-action)="turmaSelecionada(turma)"
   >
+  <po-dropdown class="po-absolute" [p-actions]="dropdown" (click)="getDados(turma)">
+  </po-dropdown>
+
   <div class=" nomeTurma po-font-subtitle po-text-center" >{{turma.Nome_Turma}}</div>
-  <div class="po-text-center">Número de alunos: {{turma.Num_Alunos}}</div>
+  <div class="nomeAlunos po-text-center">Número de alunos: {{turma.Num_Alunos}}</div>
+  <div class="codTurma" >Código: {{turma.Cod_turma}}</div>
   </po-widget>
 </div>
+
+ <po-modal #modalIncluir p-title="Cadastro turma" [p-primary-action]="confirm" [p-secondary-action]="close">
+  <po-input class="po-md-6" name="descri"  p-clean p-label="Nome Turma"  [(ngModel)]="nomeTurma"> </po-input>
+  <po-input class="po-md-6" name="descri"  p-clean p-label="Código Turma"  [(ngModel)]="codigoTurma"> </po-input>
+ </po-modal>
+
+
+ <!-- Template para a primeira modal -->
+  <po-modal #modalAlterar p-title="Editar Turma"  [p-primary-action]="salvarEditar" [p-secondary-action]="fecharEditar">
+    <po-input class="po-md-12" name="descri"  p-clean p-label="Nome Turma"  [(ngModel)]="nomeTurma"> </po-input>
+  </po-modal>
+
+<!-- Template para a segunda modal -->
+  <po-modal #modalExcluir>
+        aaaaa
+  </po-modal>

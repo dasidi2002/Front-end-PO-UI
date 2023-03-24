@@ -3,6 +3,17 @@
   margin-bottom: 10px;
 }
 
+.botao{
+  margin-left: 10px;
+}
+
+.codTurma{
+    text-align: center;
+}
+
+.nomeAlunos{
+  margin-bottom: 10px;
+}
 
 .escola {
   font-family: "Helvetica Neue", sans-serif;
@@ -11,7 +22,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgb(22, 81, 169);
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 
 }
 
@@ -21,7 +32,7 @@
   position: relative;
   text-align: center;
   font-weight: bold;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 
 }
 
@@ -35,6 +46,7 @@
   background-color: rgb(22, 81, 169); /* cor da borda animada */
   animation: load 4s infinite; /* adicionando animação */
 }
+
 
 @keyframes load {
   0% {
