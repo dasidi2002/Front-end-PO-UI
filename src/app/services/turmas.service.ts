@@ -27,5 +27,12 @@ export class TurmasService {
     return this.http.post<any>(url,body);
   }
 
+  deletarTurma(body : any ): Observable<any> {
+
+    const url = "http://localhost:8800/deletarturma"
+
+    return this.http.post<any>(url,body);
+  }
+
 
 }

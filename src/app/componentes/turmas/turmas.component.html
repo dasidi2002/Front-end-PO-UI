@@ -17,18 +17,20 @@
   </po-widget>
 </div>
 
+
+<!-- Template para a primeir\ modal -->
  <po-modal #modalIncluir p-title="Cadastro turma" [p-primary-action]="confirm" [p-secondary-action]="close">
   <po-input class="po-md-6" name="descri"  p-clean p-label="Nome Turma"  [(ngModel)]="nomeTurma"> </po-input>
   <po-input class="po-md-6" name="descri"  p-clean p-label="Código Turma"  [(ngModel)]="codigoTurma"> </po-input>
  </po-modal>
 
 
- <!-- Template para a primeira modal -->
+ <!-- Template para a segunda modal -->
   <po-modal #modalAlterar p-title="Editar Turma"  [p-primary-action]="salvarEditar" [p-secondary-action]="fecharEditar">
     <po-input class="po-md-12" name="descri"  p-clean p-label="Nome Turma"  [(ngModel)]="nomeTurma"> </po-input>
   </po-modal>
 
-<!-- Template para a segunda modal -->
-  <po-modal #modalExcluir>
-        aaaaa
+<!-- Template para a terceira modal -->
+  <po-modal #modalExcluir p-title="Excluir Turma"  [p-primary-action]="salvarExclusao" [p-secondary-action]="fecharExclusao">
+        <h2>Você deseja realmente excluir a turma selecionada ?</h2>
   </po-modal>

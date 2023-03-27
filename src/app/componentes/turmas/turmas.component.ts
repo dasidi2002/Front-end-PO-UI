@@ -79,6 +79,8 @@ confirm: PoModalAction = {
       this.turmasService.cadastraTurma(body).subscribe()
       this.modalIncluir.close()
       this.getAllTurmas()
+      this.poNotification.success("Turma incluida com sucesso")
+
       }
     else{
       this.poNotification.warning("Todos os campos devem estar preenchidos")
@@ -98,8 +100,8 @@ close: PoModalAction = {
 
 };
 
-/* metodos responsaveis pela modal de editar
- */
+/* metodos responsaveis pela modal de editar */
+
 abrirModalAlterar(){
   this.modalAlterar.open();
 }
@@ -116,6 +118,7 @@ salvarEditar: PoModalAction = {
         this.turmasService.editarTurma(body).subscribe()
         this.modalAlterar.close()
         this.getAllTurmas()
+        this.poNotification.success("Turma alterada com sucesso")
       }
     else{
       this.poNotification.warning("Todos os campos devem estar preenchidos")
@@ -141,6 +144,34 @@ fecharEditar: PoModalAction = {
 abrirModalExcluir(){
   this.modalExcluir.open();
 }
+
+
+salvarExclusao: PoModalAction = {
+  action: () => {
+
+    const body = {
+      codturma: this.codTurma
+    }
+
+        this.turmasService.deletarTurma(body).subscribe()
+        this.modalExcluir.close()
+        this.getAllTurmas()
+        this.poNotification.success("Turma excluída com sucesso")
+
+
+  },
+  label: 'Excluir'
+};
+
+
+fecharExclusao: PoModalAction = {
+  action: () => {
+    this.modalExcluir.close()
+    this.form.reset()
+  },
+  label: 'Fechar'
+
+};
 
 
 }

@@ -1,1 +1,28 @@
-<p>materias works!</p>
+<h3 class="escola">Escola Mackenzie</h3>
+<h2 class="titulo">Matérias</h2>
+<po-button p-label="+ Adicionar Matéria"  class="botao"(p-click)="abrirModalICluir()"> </po-button>
+
+<div class="po-row">
+  <po-widget
+  class=" widget po-lg-4 po-mt-3 po-sm-6"
+  *ngFor="let materia of materias"
+  (p-primary-action)="materiaSelecionada(materia)"
+  p-primary-label="Selecionar">
+
+    <po-dropdown class="po-absolute" [p-actions]="dropdownEditar" (click)="getMateria(materia)" ></po-dropdown>
+    <div class=" materias po-font-subtitle po-text-center" >{{materia.Nome_Disciplina}}</div>
+    <div class=" codmateria po-font-subtitle po-text-center" >Turno: {{materia.Horario}}  |  Código: {{materia.Cod_Disciplina}}</div>
+  </po-widget>
+</div>
+
+<!-- Template para a primeir\amodal -->
+<po-modal #modalIncluir p-title="Cadastro Matéria" [p-primary-action]="confirm" [p-secondary-action]="close">
+  <po-input class="po-md-6" name="descri"  p-clean p-label="Nome Matéria"  [(ngModel)]="nomeMateria"> </po-input>
+  <po-input class="po-md-6" name="descri"  p-clean p-label="Código Matéria"  [(ngModel)]="codigoMateria"> </po-input>
+  <po-combo p-placeholder="Primeiro turno 07:00 até 12:00 | Segundo turno 12:00 até 16:00"  class="po-md-12" name="descri" p-label="Turno" [p-options]="[{ value: 'Primeiro' }, { value: 'Segundo' }]" (p-change)="setTurno($event)"> </po-combo>
+</po-modal>
+
+ <!-- Template para a segunda modal -->
+ <po-modal #modalAlterar p-title="Editar Matéria"  [p-primary-action]="salvarEditar" [p-secondary-action]="fecharEditar">
+  <po-input class="po-md-12" name="descri"  p-clean p-label="Nome Matéria"  [(ngModel)]="nomeMateriaUpdate"> </po-input>
+</po-modal>
