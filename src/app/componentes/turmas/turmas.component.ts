@@ -29,6 +29,7 @@ export class TurmasComponent {
   public codigoTurma:string = '';
   public turmaAtual: any[] = [];
   public codTurma:Number = 0;
+  public existeTurma:Boolean = false;
 
 
 /*   estamos setando as opções para o dropdwon no caso editar e excluir
@@ -76,10 +77,25 @@ confirm: PoModalAction = {
     }
 
     if(this.nomeTurma != "" && this.codigoTurma != "") {
-      this.turmasService.cadastraTurma(body).subscribe()
-      this.modalIncluir.close()
-      this.getAllTurmas()
-      this.poNotification.success("Turma incluida com sucesso")
+
+      if(isNaN(Number(this.codigoTurma))){
+        this.poNotification.warning("Apenas são aceitos números no campo Código matéria")
+      }else{
+        for(let i = 0; i < this.turmas.length ; i++){
+          if(this.turmas[i].Cod_turma === Number(this.codigoTurma)){
+            this.poNotification.warning("O código da turma informado já existe")
+            this.existeTurma = true
+            break;
+          }
+        }
+        if(!this.existeTurma){
+          this.turmasService.cadastraTurma(body).subscribe()
+          this.modalIncluir.close()
+          this.getAllTurmas()
+          this.poNotification.success("Turma incluida com sucesso")
+          this.getAllTurmas()
+        }
+      }
 
       }
     else{
@@ -119,6 +135,7 @@ salvarEditar: PoModalAction = {
         this.modalAlterar.close()
         this.getAllTurmas()
         this.poNotification.success("Turma alterada com sucesso")
+        this.getAllTurmas()
       }
     else{
       this.poNotification.warning("Todos os campos devem estar preenchidos")
@@ -157,7 +174,7 @@ salvarExclusao: PoModalAction = {
         this.modalExcluir.close()
         this.getAllTurmas()
         this.poNotification.success("Turma excluída com sucesso")
-
+        this.getAllTurmas()
 
   },
   label: 'Excluir'

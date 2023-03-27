@@ -27,4 +27,11 @@ export class MateriasService {
 
     return this.http.post<any>(url,body);
   }
+
+  deleteMateria(body : any ): Observable<any> {
+
+    const url = "http://localhost:8800/materias/excluir"
+
+    return this.http.post<any>(url,body);
+  }
 }

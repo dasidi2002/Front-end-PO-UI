@@ -12,6 +12,7 @@ import { TurmasComponent } from './componentes/turmas/turmas.component';
 import { DiasemanaComponent } from './componentes/diasemana/diasemana.component';
 import { MateriasComponent } from './componentes/materias/materias.component';
 import { FormsModule }   from '@angular/forms';
+import { AlunosComponent } from './componentes/alunos/alunos.component';
 
 
 
@@ -22,7 +23,8 @@ import { FormsModule }   from '@angular/forms';
     LoginComponent,
     TurmasComponent,
     DiasemanaComponent,
-    MateriasComponent
+    MateriasComponent,
+    AlunosComponent
   ],
   imports: [
     BrowserModule,

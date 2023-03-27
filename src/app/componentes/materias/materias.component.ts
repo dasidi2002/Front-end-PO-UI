@@ -48,7 +48,7 @@ export class MateriasComponent {
 
   public dropdownEditar : Array<any> = [
     { label: 'Editar',  icon: 'po-icon-edit', action: this.abrirModalAlterar.bind(this)},
-    { label: 'Excluir', icon: 'po-icon-delete', /* action: this.abrirModalExcluir.bind(this) */},
+    { label: 'Excluir', icon: 'po-icon-delete', action: this.abrirModalExcluir.bind(this) },
   ];
 
   getAllMaterias(){
@@ -62,7 +62,7 @@ export class MateriasComponent {
   }
 
   materiaSelecionada(materia: any){
-    alert(materia["Nome_Disciplina"])
+    this.router.navigate([`/turmas/${this.codturma}/${this.diaSemana}/${materia["Nome_Disciplina"]}`])
   }
 
   setTurno(evento: any ){
@@ -168,6 +168,47 @@ fecharEditar: PoModalAction = {
 };
 
 
+/* metodos responsaveis pelo modar de excluir
+ */
+
+abrirModalExcluir(){
+  this.modalExcluir.open();
+}
+
+
+salvarExclusao: PoModalAction = {
+  action: () => {
+
+    const body = {
+      codMateria:  Number(this.codigoMateria),
+      codTurma: Number(this.codturma),
+      DiaSemana:  this.diaSemana
+
+    }
+
+        this.materiasService.deleteMateria(body).subscribe()
+        this.modalExcluir.close()
+        this.getAllMaterias()
+        this.poNotification.success("Materia excluída com sucesso")
+        this.getAllMaterias()
+
+
+  },
+  label: 'Excluir'
+};
+
+
+fecharExclusao: PoModalAction = {
+  action: () => {
+    this.modalExcluir.close()
+    this.form.reset()
+  },
+  label: 'Fechar'
+
+};
 
 
 }
+
+
+

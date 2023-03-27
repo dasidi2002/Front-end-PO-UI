@@ -1,3 +1,4 @@
+import { AlunosComponent } from './componentes/alunos/alunos.component';
 import { MateriasComponent } from './componentes/materias/materias.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +12,8 @@ const routes: Routes = [
   {path: 'turmas', component: TurmasComponent},
   {path: 'turmas/:codturma', component: DiasemanaComponent},
   {path: 'turmas/:codturma/:diasemana', component: MateriasComponent},
+  {path: 'turmas/:codturma/:diasemana/:materia', component: AlunosComponent},
+
 
 
 ];
