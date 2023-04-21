@@ -26,9 +26,11 @@ export class DiasemanaComponent {
 
       diaValidado = this.validaDiaAtual(dia)
 
-      if (diaValidado){
+     /*  if (diaValidado){
         this.router.navigate([`/turmas/${codturma}/${dia}`])
-      }
+      } */
+
+      this.router.navigate([`/turmas/${codturma}/${dia}`])
 
     }
 
@@ -53,7 +55,7 @@ export class DiasemanaComponent {
       }
 
       if (!validaDia && !finalDeSemana){
-        this.poNotification.warning("Apenas é possível realizar a chamada no dia atual")
+        this.poNotification.warning("Dia selecionado diferente do dia atual")
       } else if (!validaDia && finalDeSemana){
         this.poNotification.warning("Não é possível realizar chamada aos final de semana")
       }

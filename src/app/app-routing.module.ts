@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'turmas', component: TurmasComponent},
   {path: 'turmas/:codturma', component: DiasemanaComponent},
   {path: 'turmas/:codturma/:diasemana', component: MateriasComponent},
-  {path: 'turmas/:codturma/:diasemana/:materia', component: AlunosComponent},
+  {path: 'turmas/:codturma/:diasemana/:codmateria', component: AlunosComponent},
 
 
 

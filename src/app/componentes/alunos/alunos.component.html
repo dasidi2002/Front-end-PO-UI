@@ -1,1 +1,22 @@
-<h1>pagina de alunos em desenvolvimento :D</h1>
+<h3 class="escola">Escola Mackenzie</h3>
+<po-button p-label="+ Cadastrar Aluno" (p-click)="abrirModalICluir()" class="botao"> </po-button>
+  <div class=' teste po-lg-12'>
+    <po-table
+     p-title="People"
+    [p-columns]="colunas"
+    [p-selectable]="true"
+    [p-items] = "registrosTabela"
+    >
+    </po-table>
+  </div>
+
+  <po-divider></po-divider>
+
+  <po-button p-label="Submeter Faltas" (p-click)="submeterFalta()" class="botaoFalta" p-icon="po-icon-ok"> </po-button>
+
+<!-- Template para a primeir\ modal -->
+<po-modal #modalIncluir p-title="Cadastro aluno" [p-primary-action]="confirm" [p-secondary-action]="close">
+  <po-input class="po-md-6" name="descri"  p-clean p-label="Nome Aluno"  [(ngModel)]="nomeAluno"> </po-input>
+  <po-input class="po-md-6" name="descri"  p-clean p-label="Matrícula"  [(ngModel)]="matricula"> </po-input>
+  <po-input class="po-md-12" name="descri"  p-clean p-label="Email aluno"  [(ngModel)]="email"> </po-input>
+ </po-modal>

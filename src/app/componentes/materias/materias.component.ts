@@ -62,7 +62,7 @@ export class MateriasComponent {
   }
 
   materiaSelecionada(materia: any){
-    this.router.navigate([`/turmas/${this.codturma}/${this.diaSemana}/${materia["Nome_Disciplina"]}`])
+    this.router.navigate([`/turmas/${this.codturma}/${this.diaSemana}/${materia["Cod_Disciplina"]}`])
   }
 
   setTurno(evento: any ){
