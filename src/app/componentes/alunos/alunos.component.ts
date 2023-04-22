@@ -1,5 +1,6 @@
+import { FaltasService } from './../../services/faltas.service';
 import { AlunosService } from './../../services/alunos.service';
-import { Component, ViewChild,TemplateRef } from '@angular/core';
+import { Component, ViewChild,TemplateRef, ɵLocaleDataIndex } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoModalAction } from '@po-ui/ng-components';
 import { PoModalComponent } from '@po-ui/ng-components';
@@ -20,6 +21,7 @@ export class AlunosComponent {
   @ViewChild('modalIncluir') modalIncluir!: PoModalComponent;
   @ViewChild('modalAlterar') modalAlterar!: PoModalComponent;
   @ViewChild('modalExcluir') modalExcluir!: PoModalComponent;
+  @ViewChild('modalFaltas') modalFaltas!: PoModalComponent;
   @ViewChild(PoTableComponent, { static: true })
 
   poTable!: PoTableComponent;
@@ -34,8 +36,11 @@ export class AlunosComponent {
   public registrosTabela:any[]=[];
   public existeAluno:boolean = false;
   public detailAluno:any  ;
+  public quantidadeFaltas:Number = 0;
+  public qtdAlunosSelecionado: Number = 0;
+  public alunosSelecionados:any
 
-  constructor(private activatedRoute: ActivatedRoute, private AlunosService:AlunosService, private poNotification: PoNotificationService){}
+  constructor(private activatedRoute: ActivatedRoute, private AlunosService:AlunosService,private FaltasService:FaltasService, private poNotification: PoNotificationService){}
 
  /* metodo responsaveis pelas colunas da tabela*/
 
@@ -92,8 +97,7 @@ getAlunos(){
 
 submeterFalta(){
   const alunosSelecionados = this.poTable.getSelectedRows()
-
-  console.log(alunosSelecionados)
+  this.AbrirmodalFaltas(alunosSelecionados)
 }
 
 /* metodos responsavais pela modal de incluir*/
@@ -129,7 +133,6 @@ submeterFalta(){
         }
         if(!this.existeAluno){
           this.AlunosService.cadastraAluno(body).subscribe((data: any) => {
-
             if (data.AlunoCadastrado) {
               this.modalIncluir.close()
               this.getAlunos()
@@ -220,7 +223,7 @@ excluirAluno: PoModalAction = {
 
     this.AlunosService.excluirAluno(body).subscribe()
     this.modalExcluir.close()
-    this.poNotification.success("Aluno excluída com sucesso")
+    this.poNotification.success("Aluno excluído com sucesso")
     this.getAlunos()
 
   },
@@ -229,6 +232,55 @@ excluirAluno: PoModalAction = {
 
 
 fecharExcluirAluno: PoModalAction = {
+  action: () => {
+    this.modalExcluir.close()
+    this.form.reset()
+  },
+  label: 'Fechar'
+
+};
+
+/* metodos responsavais pela modal de faltas*/
+
+
+AbrirmodalFaltas(alunosSelecionados: any){
+  this.qtdAlunosSelecionado = alunosSelecionados.length
+  this.alunosSelecionados = alunosSelecionados
+  if (this.qtdAlunosSelecionado != 0){
+    this.modalFaltas.open()
+  }
+  else{
+    this.poNotification.warning("Nenhum aluno selecionado")
+  }
+}
+
+setQuantidadeFaltas(evento:any){
+  this.quantidadeFaltas = evento
+}
+
+confirmarFaltas: PoModalAction = {
+  action: () => {
+
+    const body = {
+      registros: this.alunosSelecionados.map((registros: any) => ({ ...registros, faltaAplicada: this.quantidadeFaltas,codDisciplina: Number(this.activatedRoute.snapshot.paramMap.get("codmateria")) }))
+    }
+
+    if(this.quantidadeFaltas != 0){
+      this.FaltasService.submeterFaltas(body).subscribe()
+      this.modalFaltas.close()
+      this.poNotification.success("Faltas aplicadas com sucesso")
+      this.getAlunos()
+    }
+    else{
+      this.poNotification.warning("O campo de aulas dadas é obrigatório")
+    }
+
+  },
+  label: 'Submeter'
+};
+
+
+fecharFaltas: PoModalAction = {
   action: () => {
     this.modalExcluir.close()
     this.form.reset()

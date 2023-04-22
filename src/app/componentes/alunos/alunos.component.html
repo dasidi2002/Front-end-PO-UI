@@ -34,3 +34,9 @@
  <po-modal #modalExcluir p-title="Excluir Aluno"  [p-primary-action]="excluirAluno" [p-secondary-action]="fecharExcluirAluno">
   <h2>Você deseja realmente excluir o aluno selecionado ?</h2>
 </po-modal>
+
+<!-- Template para a modal faltas -->
+<po-modal #modalFaltas  [p-primary-action]="confirmarFaltas" [p-secondary-action]="fecharFaltas">
+  <h2 class="qtdAlunos">Você selecionou {{qtdAlunosSelecionado}} aluno(s) para aplicar falta(s)</h2>
+  <po-combo p-placeholder="Selecione a quantidade de aulas dadas"  class="po-md-12" name="descri" p-label="Aulas" [p-options]="[{ value: 1 }, { value: 2 },{ value: 3 }, { value: 4 }]" (p-change)="setQuantidadeFaltas($event)"> </po-combo>
+</po-modal>

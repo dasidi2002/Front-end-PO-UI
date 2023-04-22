@@ -57,7 +57,7 @@ export class DiasemanaComponent {
       if (!validaDia && !finalDeSemana){
         this.poNotification.warning("Dia selecionado diferente do dia atual")
       } else if (!validaDia && finalDeSemana){
-        this.poNotification.warning("Não é possível realizar chamada aos final de semana")
+        this.poNotification.error("Você está realizando chamada em um final de semana")
       }
 
       return validaDia
