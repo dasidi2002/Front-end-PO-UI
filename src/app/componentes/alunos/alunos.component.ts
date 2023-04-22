@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 export class AlunosComponent {
 
   @ViewChild('modalIncluir') modalIncluir!: PoModalComponent;
+  @ViewChild('modalAlterar') modalAlterar!: PoModalComponent;
+  @ViewChild('modalExcluir') modalExcluir!: PoModalComponent;
   @ViewChild(PoTableComponent, { static: true })
 
   poTable!: PoTableComponent;
@@ -31,6 +33,7 @@ export class AlunosComponent {
   public colunas:PoTableColumn[] =[];
   public registrosTabela:any[]=[];
   public existeAluno:boolean = false;
+  public detailAluno:any  ;
 
   constructor(private activatedRoute: ActivatedRoute, private AlunosService:AlunosService, private poNotification: PoNotificationService){}
 
@@ -58,6 +61,15 @@ export class AlunosComponent {
   this.getAlunos();
  }
 
+/*  responsavel pelas opções de excluir e alterar os registros da tabela*/
+
+actions: Array<PoTableAction> = [
+
+  { action: this.AbrirmodalAlterar.bind(this), icon: 'po-icon-edit', label: 'Alterar' },
+  { action: this.AbrirmodalExcluir.bind(this), icon: 'po-icon po-icon-delete', label: 'Excluir' }
+
+];
+
  /* metodo responsavel por retornar todos os alunos de uma turma*/
 
 
@@ -65,7 +77,7 @@ getAlunos(){
   let codTurma = Number(this.activatedRoute.snapshot.paramMap.get("codturma"));
   let codMateria = Number(this.activatedRoute.snapshot.paramMap.get("codmateria"));
 
-  this.AlunosService.getMaterias(codTurma, codMateria).subscribe(
+  this.AlunosService.getAlunos(codTurma, codMateria).subscribe(
     res=>{
       this.registrosTabela = res
       },
@@ -151,11 +163,78 @@ close: PoModalAction = {
 
 /* metodos responsavais pela modal de alterar */
 
+AbrirmodalAlterar(item: any){
+  this.detailAluno = item
+  this.modalAlterar.open()
+}
+
+alterarAluno: PoModalAction = {
+  action: () => {
+
+    const body = {
+      nomeAluno: this.nomeAluno,
+      email: this.email,
+      matricula: this.detailAluno.Matricula,
+      codTurma: this.detailAluno.Cod_Turma
+    }
+
+    if(this.nomeAluno != "" && this.email === "" || this.nomeAluno === "" && this.email  != "" || this.email  != "" && this.nomeAluno != ""){
+        this.AlunosService.alterarAluno(body).subscribe((data: any) => {console.log(data)})
+        this.poNotification.success("Aluno alterado com sucesso")
+        this.modalAlterar.close()
+        this.getAlunos()
+    }else[
+      this.poNotification.warning("Pelos menos um dos campos devem estar preenchidos")
+    ]
+  },
+  label: 'Salvar'
+};
+
+
+fecharAlterarAluno: PoModalAction = {
+  action: () => {
+    this.modalExcluir.close()
+    this.form.reset()
+  },
+  label: 'Fechar'
+
+};
+
 
 
 /* metodos responsavais pela modal de excluir*/
 
+AbrirmodalExcluir(item: any){
+  this.detailAluno = item
+  this.modalExcluir.open()
+}
+
+excluirAluno: PoModalAction = {
+  action: () => {
+
+    const body = {
+      matricula: this.detailAluno.Matricula,
+      codTurma: this.detailAluno.Cod_Turma,
+      codDisciplina: Number(this.activatedRoute.snapshot.paramMap.get("codmateria"))
+    }
+
+    this.AlunosService.excluirAluno(body).subscribe()
+    this.modalExcluir.close()
+    this.poNotification.success("Aluno excluída com sucesso")
+    this.getAlunos()
+
+  },
+  label: 'Excluir'
+};
 
 
+fecharExcluirAluno: PoModalAction = {
+  action: () => {
+    this.modalExcluir.close()
+    this.form.reset()
+  },
+  label: 'Fechar'
+
+};
 
 }

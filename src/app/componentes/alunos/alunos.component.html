@@ -6,6 +6,7 @@
     [p-columns]="colunas"
     [p-selectable]="true"
     [p-items] = "registrosTabela"
+    [p-actions]="actions"
     >
     </po-table>
   </div>
@@ -14,9 +15,22 @@
 
   <po-button p-label="Submeter Faltas" (p-click)="submeterFalta()" class="botaoFalta" p-icon="po-icon-ok"> </po-button>
 
-<!-- Template para a primeir\ modal -->
+<!-- Template para a  modal incluir  -->
 <po-modal #modalIncluir p-title="Cadastro aluno" [p-primary-action]="confirm" [p-secondary-action]="close">
   <po-input class="po-md-6" name="descri"  p-clean p-label="Nome Aluno"  [(ngModel)]="nomeAluno"> </po-input>
   <po-input class="po-md-6" name="descri"  p-clean p-label="Matrícula"  [(ngModel)]="matricula"> </po-input>
-  <po-input class="po-md-12" name="descri"  p-clean p-label="Email aluno"  [(ngModel)]="email"> </po-input>
+  <po-email class="po-md-12" name="email" p-label="Email" [(ngModel)]="email"> </po-email>
  </po-modal>
+
+ <!-- Template para a  modal alterar  -->
+
+ <po-modal #modalAlterar p-title="Alterar aluno" [p-primary-action]="alterarAluno" [p-secondary-action]="fecharAlterarAluno">
+  <po-input class="po-md-6" name="descri"  p-clean p-label="Nome Aluno"  [(ngModel)]="nomeAluno"> </po-input>
+  <po-email class="po-md-6" name="email"   p-label="Email" [(ngModel)]="email"> </po-email>
+ </po-modal>
+
+ <!-- Template para a  modal excluir  -->
+
+ <po-modal #modalExcluir p-title="Excluir Aluno"  [p-primary-action]="excluirAluno" [p-secondary-action]="fecharExcluirAluno">
+  <h2>Você deseja realmente excluir o aluno selecionado ?</h2>
+</po-modal>

@@ -9,13 +9,27 @@ export class AlunosService {
 
   constructor(private http: HttpClient) { }
 
-  getMaterias(codTurma :Number , codMateria : Number): Observable<any[]> {  // especifica o tipo de dados
+  getAlunos(codTurma :Number , codMateria : Number): Observable<any[]> {  // especifica o tipo de dados
     return this.http.get<any[]>(`http://localhost:8800/alunos/${codTurma}/${codMateria}`);
   }
 
   cadastraAluno(body : any ): Observable<any> {  // especifica o tipo de dados
 
     const url = "http://localhost:8800/alunos/cadastro"
+
+    return this.http.post<any>(url,body);
+  }
+
+  alterarAluno(body : any ): Observable<any> {  // especifica o tipo de dados
+
+    const url = "http://localhost:8800/alunos/alterar"
+
+    return this.http.post<any>(url,body);
+  }
+
+  excluirAluno(body : any ): Observable<any> {  // especifica o tipo de dados
+
+    const url = "http://localhost:8800/alunos/excluir"
 
     return this.http.post<any>(url,body);
   }
